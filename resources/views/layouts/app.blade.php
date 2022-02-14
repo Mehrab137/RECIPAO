@@ -42,11 +42,15 @@
                     <ul class="navbar-nav ms-auto">
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ '/' }}">Home</a>
+                            <a class="nav-link" href="{{ route('post.index') }}">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">Recipes</a>
-                        </li>
+
+                        @if (Auth::check())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('post.my.recipe') }}"> My Recipes</a>
+                            </li>
+                        @endif
+
                         <li class="nav-item">
                             <a class="nav-link" href="">Gallery</a>
                         </li>

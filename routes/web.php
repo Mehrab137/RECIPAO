@@ -14,7 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
-
-Route::get('/', [App\Http\Controllers\PostController::class, 'index'])->name('pages.index');
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/', [App\Http\Controllers\PostController::class, 'index'])->name('post.index');
+
+Route::get('my-recipes', [App\Http\Controllers\PostController::class, 'myRecipePosts'])->name('post.my.recipe');
+Route::get('my-recipes/add', [App\Http\Controllers\PostController::class, 'addRecipePosts'])->name('post.add.recipe');
+Route::post('my-recipes/submit', [App\Http\Controllers\PostController::class, 'submitRecipePosts'])->name('post.submit.recipe');
+
+
