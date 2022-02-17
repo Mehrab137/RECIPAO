@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class PostController extends Controller
 {
@@ -26,6 +27,14 @@ class PostController extends Controller
         $image_name = uniqid() . '-' . $request->title . $request->image->extension();
         $request->image->move(public_path('images'), $image_name);
 
-        dd($image_name);
+        Post::create([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'slug' =>  SlugService::createSlug('App\Models\Post', 'slug', $request->title),
+            'image_path' => $image_name,
+            'user_id' => auth()->user()->id
+        ]);
+
+        return redirect('my-recipes')->with('message', 'Your Recipe Has Been Posted!');
     }
 }

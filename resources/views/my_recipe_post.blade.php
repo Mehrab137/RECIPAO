@@ -43,28 +43,43 @@
         </div>
     </div>
 
+    @if (session()->has('message'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong> {{ session()->get('message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+    @endif
+
     <div class="row mt-5" style="margin-bottom: 120px">
 
         @foreach ($posts as $post)
-        <div class="card mb-3 border-dark" style="max-width: 60rem;">
+        <div class="card mb-3 border-dark mt-2" style="max-width: 60rem;">
             <div class="row g-0">
                 @if ($post == null)
                     <h2 class="text-red">You have not created any recipes yet! Create now!</h2>
                 @else
                     <div class="col-md-4">
-                        <img src="..." class="img-fluid rounded-start" alt="...">
+                        <img src="{{ asset('images/' . $post->image_path) }}" class="img-fluid rounded-start" alt="...">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                        <h5 class="card-title">{{ $post->title }}</h5>
-                        <p class="card-text">{{ $post->description }} <span class="btn btn-sm btn-secondary-outline"><i>Read More</i></span></p>
-                        <p class="card-text"><small class="text-muted">Created {{ \Carbon\Carbon::parse($post->updated_at)->diffForHumans() }}</small></p>
+                            <h5 class="card-title">{{ $post->title }}</h5>
+                            <p class="card-text">{{ $post->description }} <span class="btn btn-sm btn-secondary-outline"><i>Read More</i></span></p>
+                            <p class="card-text"><small class="text-muted">Created {{ \Carbon\Carbon::parse($post->updated_at)->diffForHumans() }}</small></p>
                         </div>
                     </div>
                 @endif
             </div>
         </div>
+        <div class="d-grid d-md-flex justify-content-md-end">
+            <div class="btn-group-vertical" role="group">
+                <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                <button type="button" class="btn btn-warning btn-sm">Edit</button>
+            </div>   
+        </div>
         @endforeach
+    </div>
+</div>
 
 
 @endsection
